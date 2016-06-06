@@ -74,13 +74,13 @@ Failjure Logging library.
                (save-user))
 
 (fl/attempt-all [user {:name "Ada Lovelace"}
-                 user (validate-user)
-                 user (save-user)]
+                 user (validate-user user)
+                 user (save-user user)]
   user)
 
 (fl/attempt-all [user {:name "Ada Lovelace"}
-                 user (validate-user)
-                 user (save-user)]
+                 user (validate-user user)
+                 user (save-user user)]
   user
   (f/if-failed [e]
     ;; Do something with the failure
