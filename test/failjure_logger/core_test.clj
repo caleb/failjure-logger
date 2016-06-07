@@ -1,6 +1,6 @@
-(ns failjure-logging.core-test
+(ns failjure-logger.core-test
   (:require [clojure.test :refer :all]
-            [failjure-logging.core :refer :all]
+            [failjure-logger.core :refer :all]
             [failjure.core :as f]))
 
 (deftest can-change-default-logger
@@ -28,7 +28,7 @@
         result (with-logger logger
                  (attempt-> 1 fail-fn (+ 3)))]
     (is (f/failed? result))
-    (is (= 1 (count (history logger)))))) 
+    (is (= 1 (count (history logger))))))
 
 (deftest attempt->-works-on-failure-with-default-logger
   (let [logger (vector-error-logger)
@@ -36,7 +36,7 @@
         fail-fn #(f/fail "Failed %s" %)
         result (attempt-> 1 fail-fn (+ 3))]
     (is (f/failed? result))
-    (is (= 1 (count (history logger)))))) 
+    (is (= 1 (count (history logger))))))
 
 (deftest attempt->-works-on-success-with-default-logger
   (let [logger (vector-error-logger)
@@ -44,7 +44,7 @@
         result (attempt-> 1 (+ 2) (+ 3))]
     (is (not (f/failed? result)))
     (is (= 0 (count (history logger))))
-    (is (= 6 result)))) 
+    (is (= 6 result))))
 
 ;;
 ;; attempt->>
@@ -63,7 +63,7 @@
         result (with-logger logger
                  (attempt->> 1 fail-fn (+ 3)))]
     (is (f/failed? result))
-    (is (= 1 (count (history logger)))))) 
+    (is (= 1 (count (history logger))))))
 
 (deftest attempt->>-works-on-failure-with-default-logger
   (let [logger (vector-error-logger)
@@ -71,7 +71,7 @@
         fail-fn #(f/fail "Failed %s" %)
         result (attempt->> 1 fail-fn (+ 3))]
     (is (f/failed? result))
-    (is (= 1 (count (history logger)))))) 
+    (is (= 1 (count (history logger))))))
 
 (deftest attempt->>-works-on-success-with-default-logger
   (let [logger (vector-error-logger)
@@ -79,7 +79,7 @@
         result (attempt->> 1 (+ 2) (+ 3))]
     (is (not (f/failed? result)))
     (is (= 0 (count (history logger))))
-    (is (= 6 result)))) 
+    (is (= 6 result))))
 
 ;;
 ;; attempt-all
@@ -104,7 +104,7 @@
                                c (+ b 3)]
                               c))]
     (is (f/failed? result))
-    (is (= 1 (count (history logger)))))) 
+    (is (= 1 (count (history logger))))))
 
 (deftest attempt-all-works-on-success-with-default-logger
   (let [logger (vector-error-logger)
@@ -115,7 +115,7 @@
                             c)]
     (is (not (f/failed? result)))
     (is (= 0 (count (history logger))))
-    (is (= result 6)))) 
+    (is (= result 6))))
 
 (deftest attempt-all-works-on-failure-with-default-logger
   (let [logger (vector-error-logger)
@@ -126,7 +126,7 @@
                              c (+ b 3)]
                             c)]
     (is (f/failed? result))
-    (is (= 1 (count (history logger)))))) 
+    (is (= 1 (count (history logger))))))
 
 (deftest attempt-all-works-on-success-with-if-failed-function
   (let [logger (vector-error-logger)
@@ -142,7 +142,7 @@
     (is (not (f/failed? result)))
     (is (= result 6))
     (is (= 0 (count (history logger))))
-    (is (= 0 @counter)))) 
+    (is (= 0 @counter))))
 
 (deftest attempt-all-works-on-failure-with-if-failed-function
   (let [logger (vector-error-logger)
@@ -158,7 +158,7 @@
                                          e))]
     (is (f/failed? result))
     (is (= 1 (count (history logger))))
-    (is (= 1 @counter)))) 
+    (is (= 1 @counter))))
 
 ;;
 ;; try*

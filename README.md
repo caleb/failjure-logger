@@ -1,13 +1,13 @@
-# Failjure Logging
+# Failjure Logger
 
-Failjure Logging includes macros and protocols to automatically log errors that
+Failjure Logger includes macros and protocols to automatically log errors that
 occur in application code.
 
 This library includes macros with the same names as those in the base
 [Failjure][failjure] library.
 
-By default Failjure Logging uses `println` to print errors to standard output.
-You can configure [Failjure][failjure] Logging to use a different logger:
+By default Failjure Logger uses `println` to print errors to standard output.
+You can configure Failjure Logger to use a different logger:
 
 ```clojure
 (defrecord TimbreErrorLogger []
@@ -58,11 +58,11 @@ error:
 
 Using this library is as simple as setting up your logger and replacing the
 `attempt-*` and `try*` macro calls from [Failjure][failjure] with those from the
-Failjure Logging library.
+Failjure Logger library.
 
 ```clojure
 (ns my-namespace.core
-  (:require [failjure-logging.core :as fl]
+  (:require [failjure-logger.core :as fl]
             [failjure.core :refer [fail]]))
 
 (fl/attempt-> {:name "Ada Lovelace"}
@@ -86,7 +86,7 @@ Failjure Logging library.
     ;; Do something with the failure
     e))
 
-(fl/try* 
+(fl/try*
   (let [user (some-throwing-function {:name "Ada Lovelace"})]
     user))
 ```
